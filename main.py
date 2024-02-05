@@ -1,16 +1,46 @@
-# This is a sample Python script.
+import asyncio
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Command
+from dotenv import load_dotenv
+from os import getenv
+import logging
+import random
+import os
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+load_dotenv()
+bot = Bot(token=getenv('BOT_TOKEN'))
+dp = Dispatcher()
+
+@dp.message(Command('start'))
+async def start_command(message: types.Message):
+    print(message.text)
+    await message.answer(f"Здраствуйте уважаемый {message.from_user.first_name}!")
+
+@dp.message(Command('myinfo'))
+async def send_user_info(message: types.Message):
+    await message.answer(f"Ваш ник: {message.from_user.username}\n"
+                         f" Ваше имя: {message.from_user.first_name}\n "
+                         f"Ваш id: {message.from_user.id}")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
+#     return os.path.join(folder_path, random_file)
+#
+# random_photo = get_random_images(folder_path)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+@dp.message(Command("random_pic"))
+async def send_picture(message: types.Message):
+    folder_path = "Bekzat_bot\images"
+    files = os.listdir(folder_path)
+    random_file = random.choice(files)
+    file_path = os.path.join(folder_path, random_file)
+    with open(file_path, 'rb') as photo_phile:
+        await message.answer_photo(photo=types.InputFile(photo_phile), caption=f'Лови котика')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+async def main():
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    asyncio.run(main())
