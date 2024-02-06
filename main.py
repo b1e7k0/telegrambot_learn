@@ -25,18 +25,15 @@ async def send_user_info(message: types.Message):
 
 
 
-#     return os.path.join(folder_path, random_file)
-#
-# random_photo = get_random_images(folder_path)
 
 @dp.message(Command("random_pic"))
 async def send_picture(message: types.Message):
-    folder_path = "Bekzat_bot\images"
+    folder_path = "./images"
     files = os.listdir(folder_path)
     random_file = random.choice(files)
     file_path = os.path.join(folder_path, random_file)
-    with open(file_path, 'rb') as photo_phile:
-        await message.answer_photo(photo=types.InputFile(photo_phile), caption=f'Лови котика')
+    photo = types.FSInputFile(file_path)
+    await message.answer_photo(photo=photo, caption=f'Лови котика')
 
 async def main():
     await dp.start_polling(bot)
