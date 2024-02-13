@@ -1,7 +1,7 @@
 from aiogram import Router, types, F
 
 
-books_router = Router
+books_router = Router()
 
 @books_router.callback_query(F.data == "russian")
 async def show_russian_books(callback: types.CallbackQuery):

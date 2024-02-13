@@ -1,10 +1,10 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 
-categories_router = Router
+categories_router = Router()
 
-@categories_router.messege(Command('categories'))
-async def books_categories(messege: types.Message):
+@categories_router.message(Command('categories'))
+async def books_categories(message: types.Message):
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -17,6 +17,6 @@ async def books_categories(messege: types.Message):
             ]
         ]
     )
-    await messege.answer("Выберите категорию", reply_markup=kb)
+    await message.answer("Выберите категорию", reply_markup=kb)
 
 

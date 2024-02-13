@@ -1,7 +1,7 @@
 from aiogram import Router, types, F
 from aiogram.filters import Command
 
-myinfo_router = Router
+myinfo_router = Router()
 
 @myinfo_router.message(Command('myinfo'))
 async def send_user_info(message: types.Message):

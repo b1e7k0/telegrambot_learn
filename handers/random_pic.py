@@ -4,7 +4,7 @@ import random
 import os
 
 
-pic_router = Router
+pic_router = Router()
 
 @pic_router.message(Command("random_pic"))
 async def send_picture(message: types.Message):
