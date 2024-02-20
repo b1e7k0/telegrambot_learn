@@ -1,6 +1,9 @@
+import random
+
 from aiogram import Router, types, F
 from aiogram.filters import Command
-
+from data_base.base import DB
+from random import choice
 categories_router = Router()
 
 @categories_router.message(Command('categories'))
@@ -8,36 +11,25 @@ async def books_categories(message: types.Message):
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton(text="Русская классика", callback_data="russian"),
-                types.InlineKeyboardButton(text="Английская классика", callback_data="england")
+                types.InlineKeyboardButton(text="Романтика", callback_data="romantic"),
+                types.InlineKeyboardButton(text="Триллер", callback_data="triller")
             ],
             [
-                types.InlineKeyboardButton(text="Западная Философия", callback_data="west"),
-                types.InlineKeyboardButton(text="Восточная мудрость", callback_data="east")
+                types.InlineKeyboardButton(text="Фэнтези", callback_data="fantasy"),
+                types.InlineKeyboardButton(text="Утопия", callback_data="utopya")
             ]
         ]
     )
     await message.answer("Выберите категорию", reply_markup=kb)
 
 
-@categories_router.callback_query(F.data == "russian")
-async def show_russian_books(callback: types.CallbackQuery):
-    kb = types.InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                types.InlineKeyboardButton(text="Мастер и Маргарита", url="https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80_%D0%B8_%D0%9C%D0%B0%D1%80%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B0"),
-                types.InlineKeyboardButton(text="Война и Мир", url="https://ilibrary.ru/text/11/index.html")
-            ],
-            [
-                types.InlineKeyboardButton(text="Обломов", url="https://ilibrary.ru/text/475/p.1/index.html"),
-                types.InlineKeyboardButton(text="Преступление и Наказание", url="https://ilibrary.ru/text/69/p.1/index.html")
-            ]
-        ]
-    )
-    await callback.message.answer("Выберите Произведние", reply_markup=kb)
+@categories_router.callback_query(F.data == "romantic")
+async def show_romantic_books(callback: types.CallbackQuery):
+    r_book = random.choice(DB.)
+    await callback.message.answer()
 
-@categories_router.callback_query(F.data == "england")
-async def show_england_books(callback: types.CallbackQuery):
+@categories_router.callback_query(F.data == "triller")
+async def show_triller_books(callback: types.CallbackQuery):
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -52,8 +44,8 @@ async def show_england_books(callback: types.CallbackQuery):
     )
     await callback.message.answer("Выберите Произведние", reply_markup=kb)
 
-@categories_router.callback_query(F.data == "west")
-async def show_phylosophy_books(callback: types.CallbackQuery):
+@categories_router.callback_query(F.data == "fantasy")
+async def show_fantasy_books(callback: types.CallbackQuery):
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -67,8 +59,8 @@ async def show_phylosophy_books(callback: types.CallbackQuery):
     )
     await callback.message.answer("Выберите Произведние", reply_markup=kb)
 
-@categories_router.callback_query(F.data == "east")
-async def show_mudrost_books(callback: types.CallbackQuery):
+@categories_router.callback_query(F.data == "utopya")
+async def show_utopya_books(callback: types.CallbackQuery):
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
             [
