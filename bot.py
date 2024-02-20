@@ -14,7 +14,9 @@ async def set_commands():
     await bot.set_my_commands([
         types.BotCommand(command="start", description="Начало"),
         types.BotCommand(command="pic", description="Получить картинку"),
-        types.BotCommand(command="courses", description="Наши курсы"),
-        types.BotCommand(command="free_lesson", description="Записаться на бесплатный урок"),
+        types.BotCommand(command="opros", description="пройти опрос"),
+        types.BotCommand(command="myinfo", description="Моя информация"),
+        types.BotCommand(command='recomendation', description='Рекомендации'),
+        types.BotCommand(command="categories", description="категории")
     ])
 

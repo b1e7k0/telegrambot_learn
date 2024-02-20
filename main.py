@@ -7,11 +7,12 @@ from handers import (
     pic_router,
     myinfo_router,
     categories_router,
-    opros_router
+    opros_router,
+    rec_router
 )
 
 async def on_startup(bot: Bot):
-    db.create_tables()
+    db.create_table()
     db.populate_tables()
 
 
@@ -22,6 +23,7 @@ async def main():
     dp.include_router(pic_router)
     dp.include_router(categories_router)
     dp.include_router(opros_router)
+    dp.include_router(rec_router)
     dp.startup.register(on_startup)
     await dp.start_polling(bot)
 

@@ -6,7 +6,7 @@ import os
 
 pic_router = Router()
 
-@pic_router.message(Command("random_pic"))
+@pic_router.message(Command("pic"))
 async def send_picture(message: types.Message):
     folder_path = "./images"
     files = os.listdir(folder_path)
